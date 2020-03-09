@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="gamescene" width="740.91" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="gamescene" width="740.91" height="1334" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:com="com.*">
 	<e:Rect left="2" right="-6.090000000000032" bottom="0" top="1" width="750" height="1334" anchorOffsetX="0" anchorOffsetY="0" fillColor="0x5b92ff"/>
 	<e:Group id="con_body" width="718.18" height="718.18" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" verticalCenter="0">
-		<e:Image source="p_bg2_png" width="616" height="618" x="51" y="50"/>
-		<e:Image source="p_bg_png" scaleX="1" scaleY="1" horizontalCenter="0" verticalCenter="0" width="678" height="756"/>
-		<e:Image id="brick_0" source="p_brick1_png" x="295.2" y="421.43" scaleX="1" scaleY="1"/>
+		<e:Image source="p_bg2_png" width="616" height="618" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image source="p_bg_png" scaleX="1" scaleY="1" width="678" height="756" horizontalCenter="0" verticalCenter="0"/>
+		<e:Image id="brick_0" source="p_brick1_png" x="295.2" y="421.48" scaleX="1" scaleY="1"/>
+
 		<e:Group id="con_graph" horizontalCenter="0" verticalCenter="0">
-			<e:Image id="graph_0" source="p_graph1_png" x="0" y="0"/>
+			<e:Image id="graph_0" source="p_graph1_png" horizontalCenter="0" verticalCenter="0"/>
+			<e:Image id="graph_1" source="p_graph2_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_2" source="p_graph3_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_3" source="p_graph4_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_4" source="p_graph5_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_5" source="p_graph6_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_12" source="p_graph13_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_6" source="p_graph7_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+
+			<e:Image id="graph_7" source="p_graph8_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_8" source="p_graph9_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_9" source="p_graph10_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_10" source="p_graph11_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_11" source="p_graph12_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+
+			<e:Image id="graph_13" source="p_graph14_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="graph_14" source="p_graph15_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
 		</e:Group>
-		<e:Group id="con_face" y="412.42999999999984" width="127" height="127" horizontalCenter="230.04500000000002" x="526" scaleX="1" scaleY="1">
-			<e:Image source="p_graph_face1_png" horizontalCenter="5" verticalCenter="4"/>
+		<e:Group id="con_face" y="419.08" width="127" height="127" x="531.32" scaleX="1" scaleY="1">
+			<e:Image source="p_graph_face1_png" horizontalCenter="-0.5" verticalCenter="-0.5"/>
 		</e:Group>
+		<com:MovieClip id="mc_brick_0" width="185.33" height="283.99" x="261.53" y="338.49" anchorOffsetX="0" anchorOffsetY="0"/>
 	</e:Group>
 </e:Skin>

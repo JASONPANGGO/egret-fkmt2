@@ -145,24 +145,24 @@ namespace gConst {
 	export const blockData = {
 		[gConst.moveDir.LEFT]: {
 			idxs: [1, 2],
-			face: { x: 244, y: 364 },
+			face: { x: 290, y: 419 },
 			brick: 0,
 			//正确路线
 			[gConst.moveDir.BOTTOM]: {
 				idxs: [3],
-				face: { x: 244, y: 484 },
+				face: { x: 290, y: 525 },
 				[gConst.moveDir.LEFT]: {
 					idxs: [4],
-					face: { x: 124, y: 484 },
+					face: { x: 187, y: 526 },
 					[gConst.moveDir.TOP]: {
 						idxs: [5, 6, 7, 8],
-						face: { x: 124, y: 4 },
+						face: { x: 168, y: 66 },
 						[gConst.moveDir.LEFT]: {
 							idxs: [9],
-							face: { x: 4, y: 4 },
+							face: { x: 68, y: 66 },
 							[gConst.moveDir.BOTTOM]: {
 								idxs: [10, 11],
-								face: { x: 4, y: 244 },
+								face: { x: 65, y: 282 },
 								right: true
 							}
 						}
@@ -172,32 +172,45 @@ namespace gConst {
 			//错误路线
 			[gConst.moveDir.LEFT]: {
 				idxs: [12],
-				face: { x: 124, y: 364 },
+				face: { x: 179, y: 419 },
 				//错误分支1
 				[gConst.moveDir.BOTTOM]: {
 					idxs: [13],
-					face: { x: 124, y: 484 },
+					face: { x: 179, y: 526 },
 					[gConst.moveDir.RIGHT]: {
 						idxs: [14],
-						face: { x: 244, y: 484 },
+						face: { x: 286, y: 526 },
 						right: false
 					}
 				},
 				//错误分支2
 				[gConst.moveDir.TOP]: {
 					idxs: [6, 7, 8],
-					face: { x: 124, y: 4 },
+					face: { x: 168, y: 66 },
 					[gConst.moveDir.LEFT]: {
 						idxs: [9],
-						face: { x: 4, y: 4 },
+						face: { x: 68, y: 66 },
 						[gConst.moveDir.BOTTOM]: {
 							idxs: [10, 11],
-							face: { x: 4, y: 244 },
-							right: false
+							face: { x: 65, y: 282 },
+							right: true
 						}
 					}
 				}
 			}
 		}
 	};
+
+
+	//播放方块间隔
+	gConst.blockInterval = 80;
+
+	// 播放发光方块间隔
+	gConst.lightInterval = 50;
+
+	// 弹出下一关提示页面延迟时间
+	gConst.nextTipsTimer = 300;
+
+	//拖拽操作，最小滑动距离
+	gConst.dragDist = 40;
 }

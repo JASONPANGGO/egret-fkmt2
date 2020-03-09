@@ -82,9 +82,10 @@ var GameScene = (function (_super) {
             var disX = this.endPoint.x - this.startPoint.x;
             var disY = this.endPoint.y - this.startPoint.y;
             // 滑动太短
-            if (egret.Point.distance(this.startPoint, this.endPoint) <= gConst.dragDist) {
+            if (Math.abs(disX - disY) <= gConst.dragDist) {
                 return;
             }
+            // 0:上, 1:右, 2:下, 3:左
             var direction = Math.abs(disX) > Math.abs(disY) ? (disX > 0 ? 1 /* RIGHT */ : 3 /* LEFT */) : (disY > 0 ? 2 /* BOTTOM */ : 0 /* TOP */);
             this.doMove(direction);
             this.con_body.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.dragBlock, this);
@@ -95,18 +96,64 @@ var GameScene = (function (_super) {
         if (this.isOver) {
             return;
         }
-        var data = this.blockData[direction];
+        var data;
+        if (this.blockData[direction]) {
+            data = this.blockData[direction];
+            this.blockData = data;
+        }
         if (!data) {
             return;
         }
         var time = gConst.blockInterval * (data.idxs ? data.idxs.length : 1);
-        this.showBlock(data);
+        this.brickBreak(data.brick, time);
+        this.showBlock(data.idxs);
         this.moveFace(data.face, time);
     };
-    GameScene.prototype.showBlock = function (data) {
+    GameScene.prototype.brickBreak = function (brickId, time) {
+        var _this = this;
+        if (brickId == void 0 || time == void 0) {
+            return;
+        }
+        else {
+            // 延迟time，因为要撞到了才碎
+            egret.setTimeout(function () {
+                var brick = _this['brick_' + brickId];
+                if (brick) {
+                    _this.brick_0.visible = false;
+                }
+                var mc_brick = _this['mc_brick_' + brickId];
+                if (mc_brick == void 0)
+                    return;
+                mc_brick.visible = true;
+                mc_brick.setData([new data.McData('1', 19, "brick_break_{1}_png")]);
+                console.log(mc_brick);
+                mc_brick.once(egret.Event.COMPLETE, function () {
+                    mc_brick.visible = false;
+                }, _this);
+                mc_brick.gotoAndPlay('1', 1);
+            }, this, time);
+        }
+    };
+    GameScene.prototype.showBlock = function (idxs) {
+        var _this = this;
+        if (this.isOver)
+            return;
+        var _loop_1 = function (i) {
+            egret.setTimeout(function () {
+                _this['graph_' + idxs[i]].visible = true;
+            }, this_1, i * gConst.blockInterval);
+        };
+        var this_1 = this;
+        for (var i = 0; i < idxs.length; i++) {
+            _loop_1(i);
+        }
     };
     GameScene.prototype.moveFace = function (face, time) {
-        gTween.toMove(this.con_face, face.x, face.y, { x: time }, void 0, void 0, { x: egret.Ease.sineOut });
+        // gTween.toMove(this.con_face, face.x, face.y, { x: time }, void 0, void 0, { x: egret.Ease.sineOut });
+        egret.Tween.get(this.con_face).to({
+            x: face.x,
+            y: face.y
+        }, time, egret.Ease.sineOut);
     };
     return GameScene;
 }(eui.Component));

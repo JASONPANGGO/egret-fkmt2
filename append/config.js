@@ -19,7 +19,7 @@ var gConst;
     gConst.afterGuideTimer = 1000;
 
     //播放方块间隔
-    gConst.blockInterval = 80;
+    gConst.blockInterval = 80;F
 
     //播放发光方块间隔
     gConst.lightInterval = 50;
