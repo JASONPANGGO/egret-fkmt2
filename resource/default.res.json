@@ -1,0 +1,525 @@
+{
+	"groups": [
+		{
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,p_bg_png,p_bg2_png,p_brick1_png,p_face1_png,p_face2_png,p_face3_png,p_graph_face1_png,p_graph_face2_png,p_hand_png,p_light_png,p_tishi_png,p_word1_png,p_word2_png,p_word3_png,p_xuehua_png,p_graph1_png,p_graph10_png,p_graph11_png,p_graph12_png,p_graph13_png,p_graph14_png,p_graph15_png,p_graph2_png,p_graph3_png,p_graph4_png,p_graph5_png,p_graph6_png,p_graph7_png,p_graph8_png,p_graph9_png,p_light1_png,p_light10_png,p_light11_png,p_light12_png,p_light2_png,p_light3_png,p_light4_png,p_light5_png,p_light6_png,p_light7_png,p_light8_png,p_light9_png,brick_break_1_png,brick_break_10_png,brick_break_11_png,brick_break_12_png,brick_break_13_png,brick_break_14_png,brick_break_15_png,brick_break_16_png,brick_break_17_png,brick_break_18_png,brick_break_19_png,brick_break_2_png,brick_break_3_png,brick_break_4_png,brick_break_5_png,brick_break_6_png,brick_break_7_png,brick_break_8_png,brick_break_9_png,p_btn1_png,caidai1_json,caidai1_png,caidai2_json,caidai2_png,caidai3_json,caidai3_png,caidai4_json,caidai4_png,xuehua_json,xuehua_png,bm_bgm_mp3,sm_break_mp3,sm_huadong_mp3,sm_success_mp3,sm_tanchu_mp3",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/CheckBox/checkbox_select_disabled.png",
+			"type": "image",
+			"name": "checkbox_select_disabled_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_down.png",
+			"type": "image",
+			"name": "checkbox_select_down_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_up.png",
+			"type": "image",
+			"name": "checkbox_select_up_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_unselect.png",
+			"type": "image",
+			"name": "checkbox_unselect_png"
+		},
+		{
+			"url": "assets/ItemRenderer/selected.png",
+			"type": "image",
+			"name": "selected_png"
+		},
+		{
+			"url": "assets/Panel/border.png",
+			"type": "image",
+			"name": "border_png"
+		},
+		{
+			"url": "assets/Panel/header.png",
+			"type": "image",
+			"name": "header_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_disabled.png",
+			"type": "image",
+			"name": "radiobutton_select_disabled_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_down.png",
+			"type": "image",
+			"name": "radiobutton_select_down_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_up.png",
+			"type": "image",
+			"name": "radiobutton_select_up_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_unselect.png",
+			"type": "image",
+			"name": "radiobutton_unselect_png"
+		},
+		{
+			"url": "assets/ScrollBar/roundthumb.png",
+			"type": "image",
+			"name": "roundthumb_png"
+		},
+		{
+			"url": "assets/Slider/thumb.png",
+			"type": "image",
+			"name": "thumb_png"
+		},
+		{
+			"url": "assets/Slider/track.png",
+			"type": "image",
+			"name": "track_png"
+		},
+		{
+			"url": "assets/Slider/tracklight.png",
+			"type": "image",
+			"name": "tracklight_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/handle.png",
+			"type": "image",
+			"name": "handle_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/off.png",
+			"type": "image",
+			"name": "off_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/on.png",
+			"type": "image",
+			"name": "on_png"
+		},
+		{
+			"url": "assets/Button/button_down.png",
+			"type": "image",
+			"name": "button_down_png"
+		},
+		{
+			"url": "assets/Button/button_up.png",
+			"type": "image",
+			"name": "button_up_png"
+		},
+		{
+			"url": "assets/ProgressBar/thumb_pb.png",
+			"type": "image",
+			"name": "thumb_pb_png"
+		},
+		{
+			"url": "assets/ProgressBar/track_pb.png",
+			"type": "image",
+			"name": "track_pb_png"
+		},
+		{
+			"url": "assets/ScrollBar/track_sb.png",
+			"type": "image",
+			"name": "track_sb_png"
+		},
+		{
+			"url": "assets/bg.jpg",
+			"type": "image",
+			"name": "bg_jpg"
+		},
+		{
+			"url": "assets/egret_icon.png",
+			"type": "image",
+			"name": "egret_icon_png"
+		},
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "p_bg_png",
+			"type": "image",
+			"url": "assets/p_bg.png"
+		},
+		{
+			"name": "p_bg2_png",
+			"type": "image",
+			"url": "assets/p_bg2.png"
+		},
+		{
+			"name": "p_brick1_png",
+			"type": "image",
+			"url": "assets/p_brick1.png"
+		},
+		{
+			"name": "p_face1_png",
+			"type": "image",
+			"url": "assets/p_face1.png"
+		},
+		{
+			"name": "p_face2_png",
+			"type": "image",
+			"url": "assets/p_face2.png"
+		},
+		{
+			"name": "p_face3_png",
+			"type": "image",
+			"url": "assets/p_face3.png"
+		},
+		{
+			"name": "p_graph_face1_png",
+			"type": "image",
+			"url": "assets/p_graph_face1.png"
+		},
+		{
+			"name": "p_graph_face2_png",
+			"type": "image",
+			"url": "assets/p_graph_face2.png"
+		},
+		{
+			"name": "p_hand_png",
+			"type": "image",
+			"url": "assets/p_hand.png"
+		},
+		{
+			"name": "p_light_png",
+			"type": "image",
+			"url": "assets/p_light.png"
+		},
+		{
+			"name": "p_tishi_png",
+			"type": "image",
+			"url": "assets/p_tishi.png"
+		},
+		{
+			"name": "p_word1_png",
+			"type": "image",
+			"url": "assets/p_word1.png"
+		},
+		{
+			"name": "p_word2_png",
+			"type": "image",
+			"url": "assets/p_word2.png"
+		},
+		{
+			"name": "p_word3_png",
+			"type": "image",
+			"url": "assets/p_word3.png"
+		},
+		{
+			"name": "p_xuehua_png",
+			"type": "image",
+			"url": "assets/p_xuehua.png"
+		},
+		{
+			"name": "p_graph1_png",
+			"type": "image",
+			"url": "assets/graph/p_graph1.png"
+		},
+		{
+			"name": "p_graph10_png",
+			"type": "image",
+			"url": "assets/graph/p_graph10.png"
+		},
+		{
+			"name": "p_graph11_png",
+			"type": "image",
+			"url": "assets/graph/p_graph11.png"
+		},
+		{
+			"name": "p_graph12_png",
+			"type": "image",
+			"url": "assets/graph/p_graph12.png"
+		},
+		{
+			"name": "p_graph13_png",
+			"type": "image",
+			"url": "assets/graph/p_graph13.png"
+		},
+		{
+			"name": "p_graph14_png",
+			"type": "image",
+			"url": "assets/graph/p_graph14.png"
+		},
+		{
+			"name": "p_graph15_png",
+			"type": "image",
+			"url": "assets/graph/p_graph15.png"
+		},
+		{
+			"name": "p_graph2_png",
+			"type": "image",
+			"url": "assets/graph/p_graph2.png"
+		},
+		{
+			"name": "p_graph3_png",
+			"type": "image",
+			"url": "assets/graph/p_graph3.png"
+		},
+		{
+			"name": "p_graph4_png",
+			"type": "image",
+			"url": "assets/graph/p_graph4.png"
+		},
+		{
+			"name": "p_graph5_png",
+			"type": "image",
+			"url": "assets/graph/p_graph5.png"
+		},
+		{
+			"name": "p_graph6_png",
+			"type": "image",
+			"url": "assets/graph/p_graph6.png"
+		},
+		{
+			"name": "p_graph7_png",
+			"type": "image",
+			"url": "assets/graph/p_graph7.png"
+		},
+		{
+			"name": "p_graph8_png",
+			"type": "image",
+			"url": "assets/graph/p_graph8.png"
+		},
+		{
+			"name": "p_graph9_png",
+			"type": "image",
+			"url": "assets/graph/p_graph9.png"
+		},
+		{
+			"name": "p_light1_png",
+			"type": "image",
+			"url": "assets/light/p_light1.png"
+		},
+		{
+			"name": "p_light10_png",
+			"type": "image",
+			"url": "assets/light/p_light10.png"
+		},
+		{
+			"name": "p_light11_png",
+			"type": "image",
+			"url": "assets/light/p_light11.png"
+		},
+		{
+			"name": "p_light12_png",
+			"type": "image",
+			"url": "assets/light/p_light12.png"
+		},
+		{
+			"name": "p_light2_png",
+			"type": "image",
+			"url": "assets/light/p_light2.png"
+		},
+		{
+			"name": "p_light3_png",
+			"type": "image",
+			"url": "assets/light/p_light3.png"
+		},
+		{
+			"name": "p_light4_png",
+			"type": "image",
+			"url": "assets/light/p_light4.png"
+		},
+		{
+			"name": "p_light5_png",
+			"type": "image",
+			"url": "assets/light/p_light5.png"
+		},
+		{
+			"name": "p_light6_png",
+			"type": "image",
+			"url": "assets/light/p_light6.png"
+		},
+		{
+			"name": "p_light7_png",
+			"type": "image",
+			"url": "assets/light/p_light7.png"
+		},
+		{
+			"name": "p_light8_png",
+			"type": "image",
+			"url": "assets/light/p_light8.png"
+		},
+		{
+			"name": "p_light9_png",
+			"type": "image",
+			"url": "assets/light/p_light9.png"
+		},
+		{
+			"name": "brick_break_1_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_1.png"
+		},
+		{
+			"name": "brick_break_10_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_10.png"
+		},
+		{
+			"name": "brick_break_11_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_11.png"
+		},
+		{
+			"name": "brick_break_12_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_12.png"
+		},
+		{
+			"name": "brick_break_13_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_13.png"
+		},
+		{
+			"name": "brick_break_14_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_14.png"
+		},
+		{
+			"name": "brick_break_15_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_15.png"
+		},
+		{
+			"name": "brick_break_16_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_16.png"
+		},
+		{
+			"name": "brick_break_17_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_17.png"
+		},
+		{
+			"name": "brick_break_18_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_18.png"
+		},
+		{
+			"name": "brick_break_19_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_19.png"
+		},
+		{
+			"name": "brick_break_2_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_2.png"
+		},
+		{
+			"name": "brick_break_3_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_3.png"
+		},
+		{
+			"name": "brick_break_4_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_4.png"
+		},
+		{
+			"name": "brick_break_5_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_5.png"
+		},
+		{
+			"name": "brick_break_6_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_6.png"
+		},
+		{
+			"name": "brick_break_7_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_7.png"
+		},
+		{
+			"name": "brick_break_8_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_8.png"
+		},
+		{
+			"name": "brick_break_9_png",
+			"type": "image",
+			"url": "assets/movie/brick_break/brick_break_9.png"
+		},
+		{
+			"name": "p_btn1_png",
+			"type": "image",
+			"url": "assets/preload/first/p_btn1.png"
+		},
+		{
+			"name": "caidai1_json",
+			"type": "json",
+			"url": "assets/preload/particle/caidai/caidai1.json"
+		},
+		{
+			"name": "caidai1_png",
+			"type": "image",
+			"url": "assets/preload/particle/caidai/caidai1.png"
+		},
+		{
+			"name": "caidai2_json",
+			"type": "json",
+			"url": "assets/preload/particle/caidai/caidai2.json"
+		},
+		{
+			"name": "caidai2_png",
+			"type": "image",
+			"url": "assets/preload/particle/caidai/caidai2.png"
+		},
+		{
+			"name": "caidai3_json",
+			"type": "json",
+			"url": "assets/preload/particle/caidai/caidai3.json"
+		},
+		{
+			"name": "caidai3_png",
+			"type": "image",
+			"url": "assets/preload/particle/caidai/caidai3.png"
+		},
+		{
+			"name": "caidai4_json",
+			"type": "json",
+			"url": "assets/preload/particle/caidai/caidai4.json"
+		},
+		{
+			"name": "caidai4_png",
+			"type": "image",
+			"url": "assets/preload/particle/caidai/caidai4.png"
+		},
+		{
+			"name": "xuehua_json",
+			"type": "json",
+			"url": "assets/preload/particle/xuehua/xuehua.json"
+		},
+		{
+			"name": "xuehua_png",
+			"type": "image",
+			"url": "assets/preload/particle/xuehua/xuehua.png"
+		},
+		{
+			"name": "bm_bgm_mp3",
+			"type": "sound",
+			"url": "assets/preload/sound/bm_bgm.mp3"
+		},
+		{
+			"name": "sm_break_mp3",
+			"type": "sound",
+			"url": "assets/preload/sound/sm_break.mp3"
+		},
+		{
+			"name": "sm_huadong_mp3",
+			"type": "sound",
+			"url": "assets/preload/sound/sm_huadong.mp3"
+		},
+		{
+			"name": "sm_success_mp3",
+			"type": "sound",
+			"url": "assets/preload/sound/sm_success.mp3"
+		},
+		{
+			"name": "sm_tanchu_mp3",
+			"type": "sound",
+			"url": "assets/preload/sound/sm_tanchu.mp3"
+		}
+	]
+}
