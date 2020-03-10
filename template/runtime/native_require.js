@@ -26,7 +26,7 @@ var game_file_list = [
 	"bin-debug/main/GameScene.js",
 	"bin-debug/main/MainView.js",
 	"bin-debug/ThemeAdapter.js",
-	"bin-debug/ui/UiChatView.js",
+	"bin-debug/com/BonesCom.js",
 	"bin-debug/ui/UiEndView.js",
 	"bin-debug/AssetAdapter.js",
 	"bin-debug/com/GuideCom.js",
@@ -41,7 +41,7 @@ var game_file_list = [
 	"bin-debug/data/McData.js",
 	"bin-debug/gConst/G_Const.js",
 	"bin-debug/global/globalMgr.js",
-	"bin-debug/com/BonesCom.js",
+	"bin-debug/ui/UiChatView.js",
 	//----auto game_file_list end----
 ];
 
@@ -75,14 +75,14 @@ egret_native.egretStart = function () {
         //以下为自动修改，请勿修改
         //----auto option start----
 		entryClassName: "Main",
-		frameRate: 30,
-		scaleMode: "showAll",
+		frameRate: 60,
+		scaleMode: "fixedWidth",
 		contentWidth: 750,
-		contentHeight: 1334,
+		contentHeight: 750,
 		showPaintRect: false,
-		showFPS: false,
-		fpsStyles: "x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9",
-		showLog: false,
+		showFPS: true,
+		fpsStyles: "x:0,y:0,size:30,textColor:0xffffff,bgAlpha:0.9",
+		showLog: true,
 		logFilter: "",
 		maxTouches: 2,
 		textureScaleFactor: 1

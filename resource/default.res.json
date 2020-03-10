@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,p_bg_png,p_bg2_png,p_brick1_png,p_face1_png,p_face2_png,p_face3_png,p_graph_face1_png,p_graph_face2_png,p_hand_png,p_light_png,p_tishi_png,p_word1_png,p_word2_png,p_word3_png,p_xuehua_png,p_graph1_png,p_graph10_png,p_graph11_png,p_graph12_png,p_graph13_png,p_graph14_png,p_graph15_png,p_graph2_png,p_graph3_png,p_graph4_png,p_graph5_png,p_graph6_png,p_graph7_png,p_graph8_png,p_graph9_png,p_light1_png,p_light10_png,p_light11_png,p_light12_png,p_light2_png,p_light3_png,p_light4_png,p_light5_png,p_light6_png,p_light7_png,p_light8_png,p_light9_png,brick_break_1_png,brick_break_10_png,brick_break_11_png,brick_break_12_png,brick_break_13_png,brick_break_14_png,brick_break_15_png,brick_break_16_png,brick_break_17_png,brick_break_18_png,brick_break_19_png,brick_break_2_png,brick_break_3_png,brick_break_4_png,brick_break_5_png,brick_break_6_png,brick_break_7_png,brick_break_8_png,brick_break_9_png,p_btn1_png,caidai1_json,caidai1_png,caidai2_json,caidai2_png,caidai3_json,caidai3_png,caidai4_json,caidai4_png,xuehua_json,xuehua_png,bm_bgm_mp3,sm_break_mp3,sm_huadong_mp3,sm_success_mp3,sm_tanchu_mp3",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,p_bg_png,p_bg2_png,p_brick1_png,p_face1_png,p_face2_png,p_face3_png,p_graph_face1_png,p_graph_face2_png,p_hand_png,p_light_png,p_tishi_png,p_word1_png,p_word2_png,p_word3_png,p_xuehua_png,p_graph1_png,p_graph10_png,p_graph11_png,p_graph12_png,p_graph13_png,p_graph14_png,p_graph15_png,p_graph2_png,p_graph3_png,p_graph4_png,p_graph5_png,p_graph6_png,p_graph7_png,p_graph8_png,p_graph9_png,p_light1_png,p_light10_png,p_light11_png,p_light12_png,p_light2_png,p_light3_png,p_light4_png,p_light5_png,p_light6_png,p_light7_png,p_light8_png,p_light9_png,brick_break_1_png,brick_break_10_png,brick_break_11_png,brick_break_12_png,brick_break_13_png,brick_break_14_png,brick_break_15_png,brick_break_16_png,brick_break_17_png,brick_break_18_png,brick_break_19_png,brick_break_2_png,brick_break_3_png,brick_break_4_png,brick_break_5_png,brick_break_6_png,brick_break_7_png,brick_break_8_png,brick_break_9_png,p_btn1_png,caidai1_json,caidai1_png,caidai2_json,caidai2_png,caidai3_json,caidai3_png,caidai4_json,caidai4_png,xuehua_json,xuehua_png,bm_bgm_mp3,sm_break_mp3,sm_huadong_mp3,sm_success_mp3,sm_tanchu_mp3,p_btn12_png",
 			"name": "preload"
 		}
 	],
@@ -520,6 +520,11 @@
 			"name": "sm_tanchu_mp3",
 			"type": "sound",
 			"url": "assets/preload/sound/sm_tanchu.mp3"
+		},
+		{
+			"name": "p_btn12_png",
+			"type": "image",
+			"url": "assets/p_btn1.png"
 		}
 	]
 }

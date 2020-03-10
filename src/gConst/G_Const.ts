@@ -145,7 +145,7 @@ namespace gConst {
 	export const blockData = {
 		[gConst.moveDir.LEFT]: {
 			idxs: [1, 2],
-			face: { x: 290, y: 419 },
+			face: { x: 301, y: 429 },
 			brick: 0,
 			//正确路线
 			[gConst.moveDir.BOTTOM]: {
@@ -193,7 +193,7 @@ namespace gConst {
 						[gConst.moveDir.BOTTOM]: {
 							idxs: [10, 11],
 							face: { x: 65, y: 282 },
-							right: true
+							right: false
 						}
 					}
 				}
@@ -201,6 +201,11 @@ namespace gConst {
 		}
 	};
 
+	//第一次引导时间
+    gConst.firstGuideTimer = 300;
+
+    //之后引导时间
+    gConst.afterGuideTimer = 1000;
 
 	//播放方块间隔
 	gConst.blockInterval = 80;

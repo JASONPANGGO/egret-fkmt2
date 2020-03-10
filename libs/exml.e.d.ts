@@ -52,3 +52,5 @@ declare module skins{
 }
 declare class gamescene extends eui.Skin{
 }
+declare class guide_com extends eui.Skin{
+}

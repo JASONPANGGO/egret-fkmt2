@@ -17,15 +17,18 @@ var GameScene = (function (_super) {
         return _this;
     }
     GameScene.prototype.init = function () {
+        gTween.loopScale(this.download, 0.8, 400, 1);
         this.start();
+        this.showGuide();
     };
     /**
      * 窗口大小改变时调用
      */
     GameScene.prototype.resizeView = function () {
-        // this.con_body.
+        this.con_body.scaleX = this.con_body.scaleY = gConst.mobileByScale[GameMgr.screenType][GameMgr.mobileType];
         if (GameMgr.screenType == 1 /* VERTICAL */) {
             //竖屏
+            this.ui_tishi.horizontalCenter = "0";
             switch (GameMgr.mobileType) {
                 //iPhoneX或以上
                 case 1 /* IPHONE_X */:
@@ -40,6 +43,11 @@ var GameScene = (function (_super) {
         }
         else {
             //横屏
+            this.con_body.horizontalCenter = NaN;
+            this.con_body.verticalCenter = NaN;
+            this.con_body.x = this.width * 0.5 + this.width * 0.5 / 3;
+            this.ui_tishi.horizontalCenter = "-200";
+            this.download.x = 0.2 * this.width;
             switch (GameMgr.mobileType) {
                 //iPhoneX或以上
                 case 1 /* IPHONE_X */:
@@ -59,14 +67,56 @@ var GameScene = (function (_super) {
     GameScene.prototype.rotateView = function () {
         // console.log("rotateView", this.screenType);
         if (GameMgr.screenType == 1 /* VERTICAL */) {
+            //竖屏
+            this.con_body.horizontalCenter = 0;
+            this.con_body.verticalCenter = 0;
         }
         else {
+            //横屏
+            this.con_body.verticalCenter = -10;
         }
     };
     GameScene.prototype.start = function () {
+        this.tishi_face1.visible = true;
+        this.tishi_face2.visible = false;
+        this.tishi_face3.visible = false;
+        this.tishi_word1.visible = true;
+        this.tishi_word2.visible = false;
+        this.tishi_word3.visible = false;
+        this.p_face1.visible = true;
+        this.p_face2.visible = false;
+        this.p_light.visible = false;
         this.blockData = gConst.blockData;
+        this.con_face.x = 594;
+        this.con_face.y = 481;
+        for (var i = 1; i < 15; i++) {
+            this['graph_' + i].visible = false;
+        }
+        this.brick_0.visible = true;
         this.con_body.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this);
         this.con_body.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this);
+        this.blink();
+    };
+    /**
+     * 眨眼
+     */
+    GameScene.prototype.blink = function () {
+        this.con_face.anchorOffsetX = this.con_face.width / 2;
+        gTween.tween(this.con_face, { loop: true }, {
+            props: { scaleX: -1 }, wait: { duration: 500 }
+        }, {
+            props: { scaleX: 1 }, wait: { duration: 1500 }
+        });
+    };
+    GameScene.prototype.showGuide = function () {
+        this.guide_hand = new com.GuideCom();
+        this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.brick_0, moveTime: 500 }, this.con_graph, {
+            diffY: 0,
+            // diffS: 0,
+            pressT: 0,
+            liftT: 0
+        });
+        this.guide_hand.start();
     };
     GameScene.prototype.dragBlock = function (event) {
         if (event.type === egret.TouchEvent.TOUCH_BEGIN) {
@@ -108,6 +158,64 @@ var GameScene = (function (_super) {
         this.brickBreak(data.brick, time);
         this.showBlock(data.idxs);
         this.moveFace(data.face, time);
+        this.checkRight(data.right, time);
+    };
+    GameScene.prototype.checkRight = function (right, time) {
+        var _this = this;
+        if (right == void 0)
+            return;
+        else {
+            if (right) {
+                this.tishi_face1.visible = false;
+                this.tishi_face2.visible = false;
+                this.tishi_face3.visible = true;
+                this.tishi_word1.visible = false;
+                this.tishi_word2.visible = false;
+                this.tishi_word3.visible = true;
+                this.p_light.visible = true;
+                this.p_face2.visible = true;
+                this.p_face1.visible = false;
+                gTween.loopAlpha(this.p_light, 0.7, 300);
+            }
+            else {
+                this.tishi_face1.visible = false;
+                this.tishi_face2.visible = true;
+                this.tishi_face3.visible = false;
+                this.tishi_word1.visible = false;
+                this.tishi_word2.visible = true;
+                this.tishi_word3.visible = false;
+                var maskScale_1 = 4;
+                this.circleMask = new egret.Shape();
+                this.circleMask.graphics.clear();
+                this.circleMask.graphics.beginFill(0xffffff);
+                this.circleMask.graphics.drawCircle(GameMgr.gameview.width / 2, GameMgr.gameview.height / 2, this.width / 2);
+                this.circleMask.graphics.endFill();
+                GameMgr.gameview.addChild(this.circleMask);
+                this.circleMask.x = GameMgr.gameview.width / 2;
+                this.circleMask.y = GameMgr.gameview.height / 2;
+                GameMgr.gameview.mask = this.circleMask;
+                GameMgr.gameview.mask.anchorOffsetX = GameMgr.gameview.width / 2;
+                GameMgr.gameview.mask.anchorOffsetY = GameMgr.gameview.height / 2;
+                this.circleMask.scaleX = this.circleMask.scaleY = maskScale_1;
+                egret.setTimeout(function () {
+                    gTween.toScale(_this.circleMask, 0, 300, 1, egret.Ease.sineOut, void 0, {
+                        callback: function () {
+                            // egret.setTimeout(() => {
+                            _this.start();
+                            gTween.toScale(_this.circleMask, maskScale_1, 300, 0, void 0, void 0, {
+                                callback: function () {
+                                    GameMgr.gameview.mask = null;
+                                    _this.circleMask.graphics.clear();
+                                    _this.circleMask.visible = false;
+                                    _this.circleMask = gComMgr.rmObj(_this.circleMask);
+                                }
+                            });
+                            // }, this, 0)
+                        }
+                    });
+                }, this, time);
+            }
+        }
     };
     GameScene.prototype.brickBreak = function (brickId, time) {
         var _this = this;
@@ -126,7 +234,6 @@ var GameScene = (function (_super) {
                     return;
                 mc_brick.visible = true;
                 mc_brick.setData([new data.McData('1', 19, "brick_break_{1}_png")]);
-                console.log(mc_brick);
                 mc_brick.once(egret.Event.COMPLETE, function () {
                     mc_brick.visible = false;
                 }, _this);
@@ -149,11 +256,11 @@ var GameScene = (function (_super) {
         }
     };
     GameScene.prototype.moveFace = function (face, time) {
-        // gTween.toMove(this.con_face, face.x, face.y, { x: time }, void 0, void 0, { x: egret.Ease.sineOut });
-        egret.Tween.get(this.con_face).to({
-            x: face.x,
-            y: face.y
-        }, time, egret.Ease.sineOut);
+        gTween.toMove(this.con_face, face.x, face.y, { x: time }, void 0, void 0, { x: egret.Ease.sineOut });
+        // egret.Tween.get(this.con_face).to({
+        // 	x: face.x,
+        // 	y: face.y
+        // }, time, egret.Ease.sineOut)
     };
     return GameScene;
 }(eui.Component));

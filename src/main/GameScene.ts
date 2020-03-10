@@ -4,6 +4,27 @@ class GameScene extends eui.Component {
 	public brick_0: eui.Image;
 	public con_graph: eui.Group;
 	public con_face: eui.Group;
+	public bg: eui.Rect;
+
+	// 试玩
+	public download: eui.Image;
+
+	// 表情
+	public p_face1: eui.Image;
+	public p_face2: eui.Image;
+
+	// 上方提示
+	public ui_tishi: eui.Group;
+	public tishi_face1: eui.Image;
+	public tishi_face2: eui.Image;
+	public tishi_face3: eui.Image;
+	public tishi_word1: eui.Image;
+	public tishi_word2: eui.Image;
+	public tishi_word3: eui.Image;
+
+	// 指引手
+	public guide_hand: com.GuideCom;
+
 
 	// 黄色砖块
 	public graph_1: eui.Image;
@@ -24,8 +45,8 @@ class GameScene extends eui.Component {
 	// 砖块爆炸MC
 	public mc_brick_0: com.MovieClip;
 
-
-
+	// 发光
+	public p_light: eui.Image;
 
 
 	constructor() {
@@ -37,7 +58,9 @@ class GameScene extends eui.Component {
 	}
 
 	private init() {
+		gTween.loopScale(this.download, 0.8, 400, 1)
 		this.start()
+		this.showGuide()
 	}
 
     /**
@@ -45,11 +68,11 @@ class GameScene extends eui.Component {
 	 */
 	public resizeView(): void {
 
-		// this.con_body.
+		this.con_body.scaleX = this.con_body.scaleY = gConst.mobileByScale[GameMgr.screenType][GameMgr.mobileType];
 
 		if (GameMgr.screenType == gConst.screenType.VERTICAL) {
 			//竖屏
-
+			this.ui_tishi.horizontalCenter = "0"
 
 			switch (GameMgr.mobileType) {
 				//iPhoneX或以上
@@ -64,7 +87,11 @@ class GameScene extends eui.Component {
 			}
 		} else {
 			//横屏
-
+			this.con_body.horizontalCenter = NaN;
+			this.con_body.verticalCenter = NaN;
+			this.con_body.x = this.width * 0.5 + this.width * 0.5 / 3
+			this.ui_tishi.horizontalCenter = "-200"
+			this.download.x = 0.2 * this.width
 
 			switch (GameMgr.mobileType) {
 				//iPhoneX或以上
@@ -87,10 +114,13 @@ class GameScene extends eui.Component {
 		// console.log("rotateView", this.screenType);
 		if (GameMgr.screenType == gConst.screenType.VERTICAL) {
 			//竖屏
-
+			this.con_body.horizontalCenter = 0;
+			this.con_body.verticalCenter = 0;
+			// this.tips.height = 200;
 		} else {
 			//横屏
-
+			this.con_body.verticalCenter = -10;
+			// this.tips.height = 286;
 		}
 	}
 
@@ -103,22 +133,69 @@ class GameScene extends eui.Component {
 	private blockData: { idx: number, face: { x: number, y: number }, right?: boolean } | Object
 
 	private start() {
+		this.tishi_face1.visible = true
+		this.tishi_face2.visible = false
+		this.tishi_face3.visible = false
+		this.tishi_word1.visible = true
+		this.tishi_word2.visible = false
+		this.tishi_word3.visible = false
+		this.p_face1.visible = true
+		this.p_face2.visible = false
+
+		this.p_light.visible = false
 		this.blockData = gConst.blockData
+
+		this.con_face.x = 594
+		this.con_face.y = 481
+		for (let i = 1; i < 15; i++) {
+			this['graph_' + i].visible = false
+		}
+		this.brick_0.visible = true
 		this.con_body.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this)
 		this.con_body.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this)
 
+		this.blink()
+		
+
+	}
+
+	/**
+	 * 眨眼
+	 */
+	private blink() {
+		this.con_face.anchorOffsetX = this.con_face.width / 2
+		gTween.tween(this.con_face, { loop: true },
+			{
+				props: { scaleX: -1 }, wait: { duration: 500 }
+			}, {
+				props: { scaleX: 1 }, wait: { duration: 1500 }
+			}
+		);
+	}
+
+	private showGuide() {
+		this.guide_hand = new com.GuideCom()
+
+		this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.brick_0, moveTime: 500 }, this.con_graph, {
+			diffY: 0,
+			// diffS: 0,
+			pressT: 0,
+			liftT: 0
+		})
+		this.guide_hand.start()
 	}
 
 	private dragBlock(event: egret.TouchEvent) {
-
 		if (event.type === egret.TouchEvent.TOUCH_BEGIN) {
 			if (this.isDrag) {
 				return
 			}
+
 			this.isDrag = true
 			this.startPoint = new egret.Point(event.stageX, event.stageY)
 			this.con_body.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.dragBlock, this)
 		} else if (event.type === egret.TouchEvent.TOUCH_MOVE) {
+
 			this.endPoint = new egret.Point(event.stageX, event.stageY)
 			const disX: number = this.endPoint.x - this.startPoint.x
 			const disY: number = this.endPoint.y - this.startPoint.y
@@ -157,6 +234,69 @@ class GameScene extends eui.Component {
 		this.brickBreak(data.brick, time)
 		this.showBlock(data.idxs)
 		this.moveFace(data.face, time)
+		this.checkRight(data.right, time)
+	}
+
+	private circleMask: egret.Shape
+	private checkRight(right: boolean, time: number) {
+		if (right == void 0) return;
+		else {
+			if (right) {
+
+				this.tishi_face1.visible = false
+				this.tishi_face2.visible = false
+				this.tishi_face3.visible = true
+				this.tishi_word1.visible = false
+				this.tishi_word2.visible = false
+				this.tishi_word3.visible = true
+
+				this.p_light.visible = true
+				this.p_face2.visible = true
+				this.p_face1.visible = false
+				gTween.loopAlpha(this.p_light, 0.7, 300)
+			} else {
+				this.tishi_face1.visible = false
+				this.tishi_face2.visible = true
+				this.tishi_face3.visible = false
+				this.tishi_word1.visible = false
+				this.tishi_word2.visible = true
+				this.tishi_word3.visible = false
+				const maskScale = 4
+				this.circleMask = new egret.Shape()
+				this.circleMask.graphics.clear();
+				this.circleMask.graphics.beginFill(0xffffff)
+				this.circleMask.graphics.drawCircle(GameMgr.gameview.width / 2, GameMgr.gameview.height / 2, this.width / 2)
+				this.circleMask.graphics.endFill()
+				GameMgr.gameview.addChild(this.circleMask)
+				this.circleMask.x = GameMgr.gameview.width / 2
+				this.circleMask.y = GameMgr.gameview.height / 2
+				GameMgr.gameview.mask = this.circleMask
+				GameMgr.gameview.mask.anchorOffsetX = GameMgr.gameview.width / 2
+				GameMgr.gameview.mask.anchorOffsetY = GameMgr.gameview.height / 2
+				this.circleMask.scaleX = this.circleMask.scaleY = maskScale
+
+				egret.setTimeout(() => {
+
+					gTween.toScale(this.circleMask, 0, 300, 1, egret.Ease.sineOut, void 0, {
+						callback: () => {
+							// egret.setTimeout(() => {
+							this.start()
+							gTween.toScale(this.circleMask, maskScale, 300, 0, void 0, void 0, {
+								callback: () => {
+									GameMgr.gameview.mask = null;
+									this.circleMask.graphics.clear();
+									this.circleMask.visible = false
+									this.circleMask = gComMgr.rmObj(this.circleMask);
+								}
+							})
+							// }, this, 0)
+						}
+					})
+
+				}, this, time)
+
+			}
+		}
 	}
 
 	private brickBreak(brickId: number, time: number) {
@@ -174,7 +314,7 @@ class GameScene extends eui.Component {
 				if (mc_brick == void 0) return
 				mc_brick.visible = true
 				mc_brick.setData([new data.McData('1', 19, "brick_break_{1}_png")])
-				console.log(mc_brick)
+
 				mc_brick.once(egret.Event.COMPLETE, () => {
 					mc_brick.visible = false
 				}, this)
@@ -193,11 +333,11 @@ class GameScene extends eui.Component {
 	}
 
 	private moveFace(face: { x: number, y: number }, time: number) {
-		// gTween.toMove(this.con_face, face.x, face.y, { x: time }, void 0, void 0, { x: egret.Ease.sineOut });
-		egret.Tween.get(this.con_face).to({
-			x: face.x,
-			y: face.y
-		}, time, egret.Ease.sineOut)
+		gTween.toMove(this.con_face, face.x, face.y, { x: time }, void 0, void 0, { x: egret.Ease.sineOut });
+		// egret.Tween.get(this.con_face).to({
+		// 	x: face.x,
+		// 	y: face.y
+		// }, time, egret.Ease.sineOut)
 
 	}
 

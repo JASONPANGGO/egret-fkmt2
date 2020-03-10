@@ -84,7 +84,7 @@ var gConst;
     gConst.blockData = (_d = {},
         _d[3 /* LEFT */] = (_e = {
                 idxs: [1, 2],
-                face: { x: 290, y: 419 },
+                face: { x: 301, y: 429 },
                 brick: 0
             },
             //正确路线
@@ -141,13 +141,17 @@ var gConst;
                         _o[2 /* BOTTOM */] = {
                             idxs: [10, 11],
                             face: { x: 65, y: 282 },
-                            right: true
+                            right: false
                         },
                         _o),
                     _m),
                 _k),
             _e),
         _d);
+    //第一次引导时间
+    gConst.firstGuideTimer = 300;
+    //之后引导时间
+    gConst.afterGuideTimer = 1000;
     //播放方块间隔
     gConst.blockInterval = 80;
     // 播放发光方块间隔

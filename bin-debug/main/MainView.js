@@ -54,10 +54,12 @@ var MainView = (function (_super) {
         if (window.innerWidth > window.innerHeight) {
             _h = 750 /* WIDTH */;
             _w = 750 /* WIDTH */ / window.innerHeight * window.innerWidth;
+            GameMgr.stage.orientation = egret.OrientationMode.LANDSCAPE;
         }
         else {
             _w = 750 /* WIDTH */;
             _h = 750 /* WIDTH */ / window.innerWidth * window.innerHeight;
+            GameMgr.stage.orientation = egret.OrientationMode.PORTRAIT;
         }
         if (GameMgr.gameview) {
             GameMgr.gameview.width = Math.ceil(_w);
