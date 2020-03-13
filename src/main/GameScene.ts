@@ -5,6 +5,8 @@ class GameScene extends eui.Component {
 	public con_graph: eui.Group;
 	public con_face: eui.Group;
 	public bg: eui.Rect;
+	public hand_target: eui.Image;
+
 
 	// 试玩
 	public download: eui.Image;
@@ -61,7 +63,9 @@ class GameScene extends eui.Component {
 		gTween.loopScale(this.download, 0.8, 400, 1)
 		this.start()
 		this.showGuide()
+		this.snowFall()
 	}
+
 
     /**
 	 * 窗口大小改变时调用
@@ -73,6 +77,11 @@ class GameScene extends eui.Component {
 		if (GameMgr.screenType == gConst.screenType.VERTICAL) {
 			//竖屏
 			this.ui_tishi.horizontalCenter = "0"
+			this.con_body.x = NaN
+			this.con_body.horizontalCenter = '0'
+
+			this.download.x = NaN
+			this.download.horizontalCenter = "0"
 
 			switch (GameMgr.mobileType) {
 				//iPhoneX或以上
@@ -87,11 +96,15 @@ class GameScene extends eui.Component {
 			}
 		} else {
 			//横屏
-			this.con_body.horizontalCenter = NaN;
-			this.con_body.verticalCenter = NaN;
-			this.con_body.x = this.width * 0.5 + this.width * 0.5 / 3
-			this.ui_tishi.horizontalCenter = "-200"
-			this.download.x = 0.2 * this.width
+			this.ui_tishi.horizontalCenter = NaN
+			this.ui_tishi.x = 0.25 * this.width
+
+			this.download.horizontalCenter = NaN
+			this.download.x = 0.25 * this.width
+
+			this.con_body.horizontalCenter = NaN
+			this.con_body.x = 0.75 * this.width
+			this.verticalCenter = "0"
 
 			switch (GameMgr.mobileType) {
 				//iPhoneX或以上
@@ -145,8 +158,8 @@ class GameScene extends eui.Component {
 		this.p_light.visible = false
 		this.blockData = gConst.blockData
 
-		this.con_face.x = 594
-		this.con_face.y = 481
+		this.con_face.x = 538
+		this.con_face.y = 428
 		for (let i = 1; i < 15; i++) {
 			this['graph_' + i].visible = false
 		}
@@ -154,9 +167,14 @@ class GameScene extends eui.Component {
 		this.con_body.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this)
 		this.con_body.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this)
 
+		this.faceShake()
 		this.blink()
-		
+	}
 
+	private faceShake() {
+		gTween.swing(this.tishi_face1, 10, 200, 0, void 0, {
+			duration: 600
+		})
 	}
 
 	/**
@@ -175,14 +193,15 @@ class GameScene extends eui.Component {
 
 	private showGuide() {
 		this.guide_hand = new com.GuideCom()
-
-		this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.brick_0, moveTime: 500 }, this.con_graph, {
+		console.log(gConst.firstGuideTimer)
+		this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.hand_target, moveTime: 500 }, this.con_body, {
 			diffY: 0,
-			// diffS: 0,
+			diffS: 0,
 			pressT: 0,
 			liftT: 0
 		})
 		this.guide_hand.start()
+
 	}
 
 	private dragBlock(event: egret.TouchEvent) {
@@ -190,6 +209,7 @@ class GameScene extends eui.Component {
 			if (this.isDrag) {
 				return
 			}
+
 
 			this.isDrag = true
 			this.startPoint = new egret.Point(event.stageX, event.stageY)
@@ -224,6 +244,9 @@ class GameScene extends eui.Component {
 
 		let data: { idxs: [number], face: { x: number, y: number }, right?: boolean, brick?: number }
 		if (this.blockData[direction]) {
+			if (this.guide_hand) {
+				this.guide_hand.stop()
+			}
 			data = this.blockData[direction]
 			this.blockData = data
 		}
@@ -254,6 +277,10 @@ class GameScene extends eui.Component {
 				this.p_face2.visible = true
 				this.p_face1.visible = false
 				gTween.loopAlpha(this.p_light, 0.7, 300)
+				let caidaiPar = new com.ParticleCom()
+				caidaiPar.setData(this, 'caidai')
+				caidaiPar.start()
+				caidaiPar.updateEmitterX(this.width / 2)
 			} else {
 				this.tishi_face1.visible = false
 				this.tishi_face2.visible = true
@@ -319,6 +346,10 @@ class GameScene extends eui.Component {
 					mc_brick.visible = false
 				}, this)
 				mc_brick.gotoAndPlay('1', 1)
+
+				let st = new util.ShakeTool()
+				st.shakeObj(this, 300, 15, 30, 30)
+
 			}, this, time)
 		}
 	}
@@ -340,6 +371,13 @@ class GameScene extends eui.Component {
 		// }, time, egret.Ease.sineOut)
 
 	}
+
+	private snowFall() {
+		let snowPar = new com.ParticleCom()
+		snowPar.setData(this, 'xuehua')
+		snowPar.start()
+	}
+
 
 	// 业务代码结束
 }

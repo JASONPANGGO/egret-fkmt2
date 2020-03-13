@@ -25,21 +25,23 @@
 			<e:Image id="graph_13" source="p_graph14_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
 			<e:Image id="graph_14" source="p_graph15_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
 			<e:Image id="p_light" source="p_light_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			<e:Image id="hand_target" width="8.67" height="7.33" x="294" y="421" anchorOffsetX="0" anchorOffsetY="0"/>
+			<e:Group id="con_face" y="428.48" width="127" height="127" x="538.97" scaleX="1" scaleY="1" anchorOffsetX="64" anchorOffsetY="66">
+				<e:Image id="p_face1" source="p_graph_face1_png" horizontalCenter="-0.5" verticalCenter="-0.5"/>
+				<e:Image id="p_face2" source="p_graph_face2_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
+			</e:Group>
 		</e:Group>
-		<e:Group id="con_face" y="485.08" width="127" height="127" x="595.32" scaleX="1" scaleY="1" anchorOffsetX="64" anchorOffsetY="66">
-			<e:Image id="p_face1" source="p_graph_face1_png" horizontalCenter="-0.5" verticalCenter="-0.5"/>
-			<e:Image id="p_face2" source="p_graph_face2_png" horizontalCenter="0" verticalCenter="0" visible="false"/>
-		</e:Group>
+
 		<com:MovieClip id="mc_brick_0" width="185.33" height="283.99" x="261.53" y="338.49" anchorOffsetX="0" anchorOffsetY="0"/>
 	</e:Group>
-	<e:Group id="ui_tishi" x="37" y="-15">
+	<e:Group id="ui_tishi" x="375" y="97" anchorOffsetX="338" anchorOffsetY="112">
 		<e:Image source="p_tishi_png" anchorOffsetY="0" height="223.21" x="0" y="0"/>
-		<e:Image id="tishi_face1" source="p_face1_png" verticalCenter="0" left="56"/>
+		<e:Image id="tishi_face1" source="p_face1_png" anchorOffsetX="61" anchorOffsetY="62" x="117" y="112"/>
 		<e:Image id="tishi_word1" source="p_word1_png" verticalCenter="0" right="38"/>
 		<e:Image id="tishi_face2" source="p_face2_png" verticalCenter="0" left="54" visible="false"/>
 		<e:Image id="tishi_face3" source="p_face3_png" left="57" verticalCenter="0" visible="false"/>
 		<e:Image id="tishi_word2" source="p_word2_png" verticalCenter="0" right="86" visible="false"/>
 		<e:Image id="tishi_word3" source="p_word3_png" verticalCenter="0" right="75" visible="false"/>
 	</e:Group>
-	<e:Image id="download" source="p_btn1_png" horizontalCenter="0" bottom="21"/>
+	<e:Image id="download" source="p_btn1_png" horizontalCenter="0" bottom="21" anchorOffsetX="249" anchorOffsetY="80.5"/>
 </e:Skin>

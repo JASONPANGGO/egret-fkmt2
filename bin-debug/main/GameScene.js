@@ -20,6 +20,7 @@ var GameScene = (function (_super) {
         gTween.loopScale(this.download, 0.8, 400, 1);
         this.start();
         this.showGuide();
+        this.snowFall();
     };
     /**
      * 窗口大小改变时调用
@@ -29,6 +30,10 @@ var GameScene = (function (_super) {
         if (GameMgr.screenType == 1 /* VERTICAL */) {
             //竖屏
             this.ui_tishi.horizontalCenter = "0";
+            this.con_body.x = NaN;
+            this.con_body.horizontalCenter = '0';
+            this.download.x = NaN;
+            this.download.horizontalCenter = "0";
             switch (GameMgr.mobileType) {
                 //iPhoneX或以上
                 case 1 /* IPHONE_X */:
@@ -43,11 +48,13 @@ var GameScene = (function (_super) {
         }
         else {
             //横屏
+            this.ui_tishi.horizontalCenter = NaN;
+            this.ui_tishi.x = 0.25 * this.width;
+            this.download.horizontalCenter = NaN;
+            this.download.x = 0.25 * this.width;
             this.con_body.horizontalCenter = NaN;
-            this.con_body.verticalCenter = NaN;
-            this.con_body.x = this.width * 0.5 + this.width * 0.5 / 3;
-            this.ui_tishi.horizontalCenter = "-200";
-            this.download.x = 0.2 * this.width;
+            this.con_body.x = 0.75 * this.width;
+            this.verticalCenter = "0";
             switch (GameMgr.mobileType) {
                 //iPhoneX或以上
                 case 1 /* IPHONE_X */:
@@ -87,15 +94,21 @@ var GameScene = (function (_super) {
         this.p_face2.visible = false;
         this.p_light.visible = false;
         this.blockData = gConst.blockData;
-        this.con_face.x = 594;
-        this.con_face.y = 481;
+        this.con_face.x = 538;
+        this.con_face.y = 428;
         for (var i = 1; i < 15; i++) {
             this['graph_' + i].visible = false;
         }
         this.brick_0.visible = true;
         this.con_body.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this);
         this.con_body.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this);
+        this.faceShake();
         this.blink();
+    };
+    GameScene.prototype.faceShake = function () {
+        gTween.swing(this.tishi_face1, 10, 200, 0, void 0, {
+            duration: 600
+        });
     };
     /**
      * 眨眼
@@ -110,9 +123,10 @@ var GameScene = (function (_super) {
     };
     GameScene.prototype.showGuide = function () {
         this.guide_hand = new com.GuideCom();
-        this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.brick_0, moveTime: 500 }, this.con_graph, {
+        console.log(gConst.firstGuideTimer);
+        this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.hand_target, moveTime: 500 }, this.con_body, {
             diffY: 0,
-            // diffS: 0,
+            diffS: 0,
             pressT: 0,
             liftT: 0
         });
@@ -148,6 +162,9 @@ var GameScene = (function (_super) {
         }
         var data;
         if (this.blockData[direction]) {
+            if (this.guide_hand) {
+                this.guide_hand.stop();
+            }
             data = this.blockData[direction];
             this.blockData = data;
         }
@@ -176,6 +193,10 @@ var GameScene = (function (_super) {
                 this.p_face2.visible = true;
                 this.p_face1.visible = false;
                 gTween.loopAlpha(this.p_light, 0.7, 300);
+                var caidaiPar = new com.ParticleCom();
+                caidaiPar.setData(this, 'caidai');
+                caidaiPar.start();
+                caidaiPar.updateEmitterX(this.width / 2);
             }
             else {
                 this.tishi_face1.visible = false;
@@ -238,6 +259,8 @@ var GameScene = (function (_super) {
                     mc_brick.visible = false;
                 }, _this);
                 mc_brick.gotoAndPlay('1', 1);
+                var st = new util.ShakeTool();
+                st.shakeObj(_this, 300, 15, 30, 30);
             }, this, time);
         }
     };
@@ -261,6 +284,11 @@ var GameScene = (function (_super) {
         // 	x: face.x,
         // 	y: face.y
         // }, time, egret.Ease.sineOut)
+    };
+    GameScene.prototype.snowFall = function () {
+        var snowPar = new com.ParticleCom();
+        snowPar.setData(this, 'xuehua');
+        snowPar.start();
     };
     return GameScene;
 }(eui.Component));

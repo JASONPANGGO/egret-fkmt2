@@ -369,6 +369,8 @@ var com;
             // this.height = _h;
             if (this.isGuide) {
                 // this.playGuide();
+                this.stop();
+                this.showGuide();
                 egret.clearTimeout(this.guideDelay);
                 this.guideDelay = egret.setTimeout(this.playGuide, this, 100);
             }

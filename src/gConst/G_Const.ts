@@ -145,7 +145,7 @@ namespace gConst {
 	export const blockData = {
 		[gConst.moveDir.LEFT]: {
 			idxs: [1, 2],
-			face: { x: 301, y: 429 },
+			face: { x: 299, y: 428 },
 			brick: 0,
 			//正确路线
 			[gConst.moveDir.BOTTOM]: {
@@ -201,8 +201,8 @@ namespace gConst {
 		}
 	};
 
-	//第一次引导时间
-    gConst.firstGuideTimer = 300;
+	// //第一次引导时间
+    // gConst.firstGuideTimer = 300;
 
     //之后引导时间
     gConst.afterGuideTimer = 1000;
