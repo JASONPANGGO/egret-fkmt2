@@ -2,6 +2,11 @@
 var game_file_list = [
     //以下为自动修改，请勿修改
     //----auto game_file_list start----
+	"libs/expand/const/const.js",
+	"libs/modules/print/print.js",
+	"libs/modules/interface_ahead/interface_ahead.js",
+	"libs/modules/webaudio/webaudio.js",
+	"libs/modules/interface/interface.js",
 	"libs/modules/egret/egret.js",
 	"libs/modules/egret/egret.native.js",
 	"libs/modules/game/game.js",
@@ -9,7 +14,6 @@ var game_file_list = [
 	"libs/modules/eui/eui.js",
 	"libs/modules/tween/tween.js",
 	"libs/modules/particle/particle.js",
-	"polyfill/promise.js",
 	"bin-debug/ui/UiFileBase.js",
 	"bin-debug/util/AutoId.js",
 	"bin-debug/util/UiMgr.js",

@@ -84,29 +84,29 @@ var gConst;
     gConst.blockData = (_d = {},
         _d[3 /* LEFT */] = (_e = {
                 idxs: [1, 2],
-                face: { x: 299, y: 428 },
+                face: { x: 298, y: 428 },
                 brick: 0
             },
             //正确路线
             _e[2 /* BOTTOM */] = (_f = {
                     idxs: [3],
-                    face: { x: 290, y: 525 }
+                    face: { x: 298, y: 550 }
                 },
                 _f[3 /* LEFT */] = (_g = {
                         idxs: [4],
-                        face: { x: 187, y: 526 }
+                        face: { x: 188, y: 550 }
                     },
                     _g[0 /* TOP */] = (_h = {
                             idxs: [5, 6, 7, 8],
-                            face: { x: 168, y: 66 }
+                            face: { x: 188, y: 72 }
                         },
                         _h[3 /* LEFT */] = (_j = {
                                 idxs: [9],
-                                face: { x: 68, y: 66 }
+                                face: { x: 69, y: 72 }
                             },
                             _j[2 /* BOTTOM */] = {
                                 idxs: [10, 11],
-                                face: { x: 65, y: 282 },
+                                face: { x: 69, y: 306 },
                                 right: true
                             },
                             _j),
@@ -116,31 +116,31 @@ var gConst;
             //错误路线
             _e[3 /* LEFT */] = (_k = {
                     idxs: [12],
-                    face: { x: 179, y: 419 }
+                    face: { x: 184, y: 428 }
                 },
                 //错误分支1
                 _k[2 /* BOTTOM */] = (_l = {
                         idxs: [13],
-                        face: { x: 179, y: 526 }
+                        face: { x: 188, y: 550 }
                     },
                     _l[1 /* RIGHT */] = {
                         idxs: [14],
-                        face: { x: 286, y: 526 },
+                        face: { x: 298, y: 550 },
                         right: false
                     },
                     _l),
                 //错误分支2
                 _k[0 /* TOP */] = (_m = {
                         idxs: [6, 7, 8],
-                        face: { x: 168, y: 66 }
+                        face: { x: 188, y: 72 }
                     },
                     _m[3 /* LEFT */] = (_o = {
                             idxs: [9],
-                            face: { x: 68, y: 66 }
+                            face: { x: 69, y: 72 }
                         },
                         _o[2 /* BOTTOM */] = {
                             idxs: [10, 11],
-                            face: { x: 65, y: 282 },
+                            face: { x: 69, y: 306 },
                             right: false
                         },
                         _o),
@@ -148,18 +148,6 @@ var gConst;
                 _k),
             _e),
         _d);
-    // //第一次引导时间
-    // gConst.firstGuideTimer = 300;
-    //之后引导时间
-    gConst.afterGuideTimer = 1000;
-    //播放方块间隔
-    gConst.blockInterval = 80;
-    // 播放发光方块间隔
-    gConst.lightInterval = 50;
-    // 弹出下一关提示页面延迟时间
-    gConst.nextTipsTimer = 300;
-    //拖拽操作，最小滑动距离
-    gConst.dragDist = 40;
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 })(gConst || (gConst = {}));
 //# sourceMappingURL=G_Const.js.map

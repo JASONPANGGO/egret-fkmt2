@@ -18,14 +18,14 @@ namespace util {
 				window["changeBgMusic"]("resource/assets/preload/sound/" + name + ".mp3");
 			}
 
-			// this.bssoundurl = name;
-			// if (this.bgSound) {
-			// 	this.bgSound.stop();
-			// 	this.bgSound = null;
-			// }
+			this.bssoundurl = name;
+			if (this.bgSound) {
+				this.bgSound.stop();
+				this.bgSound = null;
+			}
 
-			// var sound: egret.Sound = RES.getRes(this.bssoundurl);
-			// this.bgSound = sound.play(0, 0);
+			var sound: egret.Sound = RES.getRes(this.bssoundurl);
+			this.bgSound = sound.play(0, 0);
 		}
 		//声音不能自动播放 需要再环境里播放 叮的一声 触发吧
 		public ding(): void {
@@ -55,7 +55,7 @@ namespace util {
 		public playEff(name: string): void {
 			if (window["webIsActivate"]) {
 				if (window["playSoundEff"]) {
-					window["playSoundEff"]("resource/assets/preload/sound/" + name + ".mp3");
+					window["playSoundEff"]("resource/assets/sound/" + name + ".mp3");
 				}
 			}
 		}

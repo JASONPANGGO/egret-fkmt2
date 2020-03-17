@@ -38,10 +38,16 @@ var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.canshow = false;
         _this.isThemeLoadEnd = false;
         _this.isResourceLoadEnd = false;
         return _this;
     }
+    /**
+     * 加载进度界面
+     * loading process interface
+     */
+    // private loadingView: LoadingUI;
     Main.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
         //inject the custom material parser
@@ -52,12 +58,24 @@ var Main = (function (_super) {
         egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
         //Config loading process interface
         //设置加载进度界面
-        this.loadingView = new LoadingUI();
-        this.stage.addChild(this.loadingView);
+        // this.loadingView = new LoadingUI();
+        // this.stage.addChild(this.loadingView);
         // initialize the Resource loading library
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig("resource/default.res.json", "resource/");
+    };
+    //webviewshow通知展示游戏
+    Main.prototype.showGame = function () {
+        if (this.showGameed) {
+            return;
+        }
+        this.showGameed = true;
+        // gSoundMgr.ding();
+        this.canshow = true;
+        if (this.isThemeLoadEnd && this.isResourceLoadEnd && this.canshow) {
+            this.startCreateScene();
+        }
     };
     /**
      * 配置文件加载完成,开始预加载皮肤主题资源和preload资源组。
@@ -89,7 +107,7 @@ var Main = (function (_super) {
      */
     Main.prototype.onResourceLoadComplete = function (event) {
         if (event.groupName == "preload") {
-            this.stage.removeChild(this.loadingView);
+            // this.stage.removeChild(this.loadingView);
             RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
             RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
@@ -100,7 +118,10 @@ var Main = (function (_super) {
     };
     Main.prototype.createScene = function () {
         if (this.isThemeLoadEnd && this.isResourceLoadEnd) {
-            this.startCreateScene();
+            ready();
+            if (this.canshow) {
+                this.startCreateScene();
+            }
         }
     };
     /**
@@ -127,7 +148,6 @@ var Main = (function (_super) {
      */
     Main.prototype.onResourceProgress = function (event) {
         if (event.groupName == "preload") {
-            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
     /**
@@ -144,6 +164,7 @@ var Main = (function (_super) {
             this.currentV = new MainView();
             this.addChild(this.currentV);
         }
+        // gSoundMgr.changeBg('bm_bgm')
     };
     return Main;
 }(eui.UILayer));

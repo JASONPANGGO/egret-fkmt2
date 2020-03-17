@@ -9,7 +9,9 @@ class GameScene extends eui.Component {
 
 
 	// 试玩
+	public download_con: eui.Group;
 	public download: eui.Image;
+
 
 	// 表情
 	public p_face1: eui.Image;
@@ -17,6 +19,7 @@ class GameScene extends eui.Component {
 
 	// 上方提示
 	public ui_tishi: eui.Group;
+	public tishi_bg: eui.Image;
 	public tishi_face1: eui.Image;
 	public tishi_face2: eui.Image;
 	public tishi_face3: eui.Image;
@@ -46,6 +49,10 @@ class GameScene extends eui.Component {
 
 	// 砖块爆炸MC
 	public mc_brick_0: com.MovieClip;
+	// 发光MC
+	public mc_light_con: eui.Group;
+
+
 
 	// 发光
 	public p_light: eui.Image;
@@ -64,6 +71,7 @@ class GameScene extends eui.Component {
 		this.start()
 		this.showGuide()
 		this.snowFall()
+
 	}
 
 
@@ -72,7 +80,10 @@ class GameScene extends eui.Component {
 	 */
 	public resizeView(): void {
 
-		this.con_body.scaleX = this.con_body.scaleY = gConst.mobileByScale[GameMgr.screenType][GameMgr.mobileType];
+		if (this.guide_hand) {
+			this.guide_hand.resizeView(this.width, this.height);
+		}
+		const baseScale = gConst.mobileByScale[GameMgr.screenType][GameMgr.mobileType];
 
 		if (GameMgr.screenType == gConst.screenType.VERTICAL) {
 			//竖屏
@@ -80,8 +91,11 @@ class GameScene extends eui.Component {
 			this.con_body.x = NaN
 			this.con_body.horizontalCenter = '0'
 
-			this.download.x = NaN
-			this.download.horizontalCenter = "0"
+			this.download_con.x = NaN
+			this.download_con.horizontalCenter = "0"
+			// this.download_con.bottom = 30
+
+			this.tishi_bg.y = -170
 
 			switch (GameMgr.mobileType) {
 				//iPhoneX或以上
@@ -98,13 +112,15 @@ class GameScene extends eui.Component {
 			//横屏
 			this.ui_tishi.horizontalCenter = NaN
 			this.ui_tishi.x = 0.25 * this.width
+			this.tishi_bg.y = -150
 
-			this.download.horizontalCenter = NaN
-			this.download.x = 0.25 * this.width
+			this.download_con.horizontalCenter = NaN
+			this.download_con.x = this.ui_tishi.x
+			// this.download_con.bottom = 30
 
 			this.con_body.horizontalCenter = NaN
 			this.con_body.x = 0.75 * this.width
-			this.verticalCenter = "0"
+
 
 			switch (GameMgr.mobileType) {
 				//iPhoneX或以上
@@ -118,6 +134,8 @@ class GameScene extends eui.Component {
 					break;
 			}
 		}
+
+		this.ui_tishi.scaleX = this.ui_tishi.scaleY = this.con_body.scaleX = this.con_body.scaleY = baseScale
 	}
 
 	/**
@@ -146,6 +164,9 @@ class GameScene extends eui.Component {
 	private blockData: { idx: number, face: { x: number, y: number }, right?: boolean } | Object
 
 	private start() {
+
+		// gSoundMgr.changeBg('bm_bgm')
+
 		this.tishi_face1.visible = true
 		this.tishi_face2.visible = false
 		this.tishi_face3.visible = false
@@ -167,12 +188,17 @@ class GameScene extends eui.Component {
 		this.con_body.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this)
 		this.con_body.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this)
 
-		this.faceShake()
+		this.download_con.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickDownload, this)
+		this.faceShake(this.tishi_face1)
 		this.blink()
 	}
 
-	private faceShake() {
-		gTween.swing(this.tishi_face1, 10, 200, 0, void 0, {
+	private clickDownload() {
+		gameInstall()
+	}
+
+	private faceShake(face) {
+		gTween.swing(face, 10, 200, 0, void 0, {
 			duration: 600
 		})
 	}
@@ -193,8 +219,7 @@ class GameScene extends eui.Component {
 
 	private showGuide() {
 		this.guide_hand = new com.GuideCom()
-		console.log(gConst.firstGuideTimer)
-		this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.hand_target, moveTime: 500 }, this.con_body, {
+		this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.hand_target, moveTime: 500 }, this, {
 			diffY: 0,
 			diffS: 0,
 			pressT: 0,
@@ -244,28 +269,28 @@ class GameScene extends eui.Component {
 
 		let data: { idxs: [number], face: { x: number, y: number }, right?: boolean, brick?: number }
 		if (this.blockData[direction]) {
+			gSoundMgr.playEff('sm_huadong')
 			if (this.guide_hand) {
 				this.guide_hand.stop()
 			}
 			data = this.blockData[direction]
 			this.blockData = data
+			const time = gConst.blockInterval * (data.idxs ? data.idxs.length : 1)
+			this.brickBreak(data.brick, time)
+			this.showBlock(data.idxs)
+			this.moveFace(data.face, time)
+			this.checkRight(data.right, time)
 		}
-		if (!data) {
-			return
-		}
-		const time = gConst.blockInterval * (data.idxs ? data.idxs.length : 1)
-		this.brickBreak(data.brick, time)
-		this.showBlock(data.idxs)
-		this.moveFace(data.face, time)
-		this.checkRight(data.right, time)
 	}
 
 	private circleMask: egret.Shape
+	private failCount: number = 0
 	private checkRight(right: boolean, time: number) {
 		if (right == void 0) return;
 		else {
+			gTween.toBottomShow(this.ui_tishi, 400, void 0, 1, egret.Ease.backOut)
+			gSoundMgr.playEff('sm_tanchu')
 			if (right) {
-
 				this.tishi_face1.visible = false
 				this.tishi_face2.visible = false
 				this.tishi_face3.visible = true
@@ -273,14 +298,34 @@ class GameScene extends eui.Component {
 				this.tishi_word2.visible = false
 				this.tishi_word3.visible = true
 
-				this.p_light.visible = true
 				this.p_face2.visible = true
 				this.p_face1.visible = false
-				gTween.loopAlpha(this.p_light, 0.7, 300)
-				let caidaiPar = new com.ParticleCom()
-				caidaiPar.setData(this, 'caidai')
-				caidaiPar.start()
-				caidaiPar.updateEmitterX(this.width / 2)
+
+				for (let i = 1; i < 13; i++) {
+					egret.setTimeout(() => {
+						let light: eui.Image = new eui.Image()
+						light.source = 'p_light' + i + '_png'
+						this.mc_light_con.addChild(light)
+					}, this, i * 50)
+				}
+
+				egret.setTimeout(() => {
+					this.mc_light_con.visible = false
+					this.p_light.visible = true
+					gTween.loopAlpha(this.p_light, 0.7, 300)
+				}, this, 12 * 50)
+
+				// this.mc_light.setData([new data.McData('light', 12, 'p_light{1}_png')])
+				// this.mc_light.gotoAndPlay('light', 1)
+
+
+				// egret.setTimeout(() => {
+				// 	// mc.dispose()
+				// 	this.con_graph.addChild(this.con_face)
+				// }, this, 500)
+				this.showCaiDai()
+				this.faceShake(this.tishi_face3)
+				gSoundMgr.playEff('sm_success')
 			} else {
 				this.tishi_face1.visible = false
 				this.tishi_face2.visible = true
@@ -288,6 +333,11 @@ class GameScene extends eui.Component {
 				this.tishi_word1.visible = false
 				this.tishi_word2.visible = true
 				this.tishi_word3.visible = false
+				this.faceShake(this.tishi_face2)
+				this.failCount++
+				if (this.failCount >= 2) {
+					return;
+				}
 				const maskScale = 4
 				this.circleMask = new egret.Shape()
 				this.circleMask.graphics.clear();
@@ -320,9 +370,18 @@ class GameScene extends eui.Component {
 						}
 					})
 
-				}, this, time)
+				}, this, time + 1000)
 
 			}
+		}
+	}
+
+	private showCaiDai() {
+		for (let i = 1; i <= 3; i++) {
+			let caidaiPar = new com.ParticleCom()
+			caidaiPar.setData(this, 'caidai' + i)
+			caidaiPar.start()
+			caidaiPar.updateEmitterX(this.width / 2)
 		}
 	}
 
@@ -332,6 +391,7 @@ class GameScene extends eui.Component {
 		} else {
 			// 延迟time，因为要撞到了才碎
 			egret.setTimeout(() => {
+				gSoundMgr.playEff('sm_break')
 				let brick: eui.Image = this['brick_' + brickId]
 				if (brick) {
 					this.brick_0.visible = false

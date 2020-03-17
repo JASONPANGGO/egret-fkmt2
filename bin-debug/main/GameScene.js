@@ -11,6 +11,7 @@ var GameScene = (function (_super) {
     function GameScene() {
         var _this = _super.call(this) || this;
         _this.isOver = false;
+        _this.failCount = 0;
         GameMgr.gameview = _this;
         _this.skinName = "gamescene";
         _this.init();
@@ -26,14 +27,19 @@ var GameScene = (function (_super) {
      * 窗口大小改变时调用
      */
     GameScene.prototype.resizeView = function () {
-        this.con_body.scaleX = this.con_body.scaleY = gConst.mobileByScale[GameMgr.screenType][GameMgr.mobileType];
+        if (this.guide_hand) {
+            this.guide_hand.resizeView(this.width, this.height);
+        }
+        var baseScale = gConst.mobileByScale[GameMgr.screenType][GameMgr.mobileType];
         if (GameMgr.screenType == 1 /* VERTICAL */) {
             //竖屏
             this.ui_tishi.horizontalCenter = "0";
             this.con_body.x = NaN;
             this.con_body.horizontalCenter = '0';
-            this.download.x = NaN;
-            this.download.horizontalCenter = "0";
+            this.download_con.x = NaN;
+            this.download_con.horizontalCenter = "0";
+            // this.download_con.bottom = 30
+            this.tishi_bg.y = -170;
             switch (GameMgr.mobileType) {
                 //iPhoneX或以上
                 case 1 /* IPHONE_X */:
@@ -50,11 +56,12 @@ var GameScene = (function (_super) {
             //横屏
             this.ui_tishi.horizontalCenter = NaN;
             this.ui_tishi.x = 0.25 * this.width;
-            this.download.horizontalCenter = NaN;
-            this.download.x = 0.25 * this.width;
+            this.tishi_bg.y = -150;
+            this.download_con.horizontalCenter = NaN;
+            this.download_con.x = this.ui_tishi.x;
+            // this.download_con.bottom = 30
             this.con_body.horizontalCenter = NaN;
             this.con_body.x = 0.75 * this.width;
-            this.verticalCenter = "0";
             switch (GameMgr.mobileType) {
                 //iPhoneX或以上
                 case 1 /* IPHONE_X */:
@@ -67,6 +74,7 @@ var GameScene = (function (_super) {
                     break;
             }
         }
+        this.ui_tishi.scaleX = this.ui_tishi.scaleY = this.con_body.scaleX = this.con_body.scaleY = baseScale;
     };
     /**
      * 屏幕横竖屏转换时调用
@@ -84,6 +92,7 @@ var GameScene = (function (_super) {
         }
     };
     GameScene.prototype.start = function () {
+        // gSoundMgr.changeBg('bm_bgm')
         this.tishi_face1.visible = true;
         this.tishi_face2.visible = false;
         this.tishi_face3.visible = false;
@@ -102,11 +111,15 @@ var GameScene = (function (_super) {
         this.brick_0.visible = true;
         this.con_body.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this);
         this.con_body.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.dragBlock, this);
-        this.faceShake();
+        this.download_con.addEventListener(egret.TouchEvent.TOUCH_TAP, this.clickDownload, this);
+        this.faceShake(this.tishi_face1);
         this.blink();
     };
-    GameScene.prototype.faceShake = function () {
-        gTween.swing(this.tishi_face1, 10, 200, 0, void 0, {
+    GameScene.prototype.clickDownload = function () {
+        gameInstall();
+    };
+    GameScene.prototype.faceShake = function (face) {
+        gTween.swing(face, 10, 200, 0, void 0, {
             duration: 600
         });
     };
@@ -123,8 +136,7 @@ var GameScene = (function (_super) {
     };
     GameScene.prototype.showGuide = function () {
         this.guide_hand = new com.GuideCom();
-        console.log(gConst.firstGuideTimer);
-        this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.hand_target, moveTime: 500 }, this.con_body, {
+        this.guide_hand.setData(gConst.firstGuideTimer, { target_1: this.con_face, target_2: this.hand_target, moveTime: 500 }, this, {
             diffY: 0,
             diffS: 0,
             pressT: 0,
@@ -162,26 +174,26 @@ var GameScene = (function (_super) {
         }
         var data;
         if (this.blockData[direction]) {
+            gSoundMgr.playEff('sm_huadong');
             if (this.guide_hand) {
                 this.guide_hand.stop();
             }
             data = this.blockData[direction];
             this.blockData = data;
+            var time = gConst.blockInterval * (data.idxs ? data.idxs.length : 1);
+            this.brickBreak(data.brick, time);
+            this.showBlock(data.idxs);
+            this.moveFace(data.face, time);
+            this.checkRight(data.right, time);
         }
-        if (!data) {
-            return;
-        }
-        var time = gConst.blockInterval * (data.idxs ? data.idxs.length : 1);
-        this.brickBreak(data.brick, time);
-        this.showBlock(data.idxs);
-        this.moveFace(data.face, time);
-        this.checkRight(data.right, time);
     };
     GameScene.prototype.checkRight = function (right, time) {
         var _this = this;
         if (right == void 0)
             return;
         else {
+            gTween.toBottomShow(this.ui_tishi, 400, void 0, 1, egret.Ease.backOut);
+            gSoundMgr.playEff('sm_tanchu');
             if (right) {
                 this.tishi_face1.visible = false;
                 this.tishi_face2.visible = false;
@@ -189,14 +201,33 @@ var GameScene = (function (_super) {
                 this.tishi_word1.visible = false;
                 this.tishi_word2.visible = false;
                 this.tishi_word3.visible = true;
-                this.p_light.visible = true;
                 this.p_face2.visible = true;
                 this.p_face1.visible = false;
-                gTween.loopAlpha(this.p_light, 0.7, 300);
-                var caidaiPar = new com.ParticleCom();
-                caidaiPar.setData(this, 'caidai');
-                caidaiPar.start();
-                caidaiPar.updateEmitterX(this.width / 2);
+                var _loop_1 = function (i) {
+                    egret.setTimeout(function () {
+                        var light = new eui.Image();
+                        light.source = 'p_light' + i + '_png';
+                        _this.mc_light_con.addChild(light);
+                    }, this_1, i * 50);
+                };
+                var this_1 = this;
+                for (var i = 1; i < 13; i++) {
+                    _loop_1(i);
+                }
+                egret.setTimeout(function () {
+                    _this.mc_light_con.visible = false;
+                    _this.p_light.visible = true;
+                    gTween.loopAlpha(_this.p_light, 0.7, 300);
+                }, this, 12 * 50);
+                // this.mc_light.setData([new data.McData('light', 12, 'p_light{1}_png')])
+                // this.mc_light.gotoAndPlay('light', 1)
+                // egret.setTimeout(() => {
+                // 	// mc.dispose()
+                // 	this.con_graph.addChild(this.con_face)
+                // }, this, 500)
+                this.showCaiDai();
+                this.faceShake(this.tishi_face3);
+                gSoundMgr.playEff('sm_success');
             }
             else {
                 this.tishi_face1.visible = false;
@@ -205,6 +236,11 @@ var GameScene = (function (_super) {
                 this.tishi_word1.visible = false;
                 this.tishi_word2.visible = true;
                 this.tishi_word3.visible = false;
+                this.faceShake(this.tishi_face2);
+                this.failCount++;
+                if (this.failCount >= 2) {
+                    return;
+                }
                 var maskScale_1 = 4;
                 this.circleMask = new egret.Shape();
                 this.circleMask.graphics.clear();
@@ -234,8 +270,16 @@ var GameScene = (function (_super) {
                             // }, this, 0)
                         }
                     });
-                }, this, time);
+                }, this, time + 1000);
             }
+        }
+    };
+    GameScene.prototype.showCaiDai = function () {
+        for (var i = 1; i <= 3; i++) {
+            var caidaiPar = new com.ParticleCom();
+            caidaiPar.setData(this, 'caidai' + i);
+            caidaiPar.start();
+            caidaiPar.updateEmitterX(this.width / 2);
         }
     };
     GameScene.prototype.brickBreak = function (brickId, time) {
@@ -246,6 +290,7 @@ var GameScene = (function (_super) {
         else {
             // 延迟time，因为要撞到了才碎
             egret.setTimeout(function () {
+                gSoundMgr.playEff('sm_break');
                 var brick = _this['brick_' + brickId];
                 if (brick) {
                     _this.brick_0.visible = false;
@@ -268,14 +313,14 @@ var GameScene = (function (_super) {
         var _this = this;
         if (this.isOver)
             return;
-        var _loop_1 = function (i) {
+        var _loop_2 = function (i) {
             egret.setTimeout(function () {
                 _this['graph_' + idxs[i]].visible = true;
-            }, this_1, i * gConst.blockInterval);
+            }, this_2, i * gConst.blockInterval);
         };
-        var this_1 = this;
+        var this_2 = this;
         for (var i = 0; i < idxs.length; i++) {
-            _loop_1(i);
+            _loop_2(i);
         }
     };
     GameScene.prototype.moveFace = function (face, time) {

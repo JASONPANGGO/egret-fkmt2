@@ -10,6 +10,18 @@
   "egret_version": "4.0.3",
   "modules": [
     {
+      "name": "print"
+    },
+    {
+      "name": "interface_ahead"
+    },
+    {
+      "name": "webaudio"
+    },
+    {
+      "name": "interface"
+    },
+    {
       "name": "egret"
     },
     {
@@ -25,7 +37,7 @@
       "name": "tween"
     },
     {
-      "name":"particle"
+      "name": "particle"
     }
   ]
 }
